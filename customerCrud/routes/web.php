@@ -21,4 +21,8 @@ Route::get('/', function () {
 Route::controller(CustomerController::class)->group(function(){
     Route::get('/customers', 'index');
     Route::get('/customers/create', 'create');
+    Route::post('/customers', 'store');
+    Route::get('/customers/{customer}/edit', 'edit');
+    Route::put('/customer/{customer}', 'update');
+    Route::delete('/customers/{customer}', 'destroy');
 });

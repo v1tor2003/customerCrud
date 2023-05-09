@@ -12,7 +12,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('customer.index');
+        $customers = Customer::all();
+        return view('customer.index', compact('customers'));
     }
 
     /**
@@ -28,7 +29,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = Customer::create();
+        $customer->customerAddress()->create();
+        return redirect()->with('message', 'Cliente cadastrado com sucesso!');
     }
 
     /**
@@ -44,7 +47,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.edit', compact('customer'));
     }
 
     /**
@@ -52,7 +55,9 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $customer->update();
+        $customer->customerAddress()->update();
+        return redirect('customers')->with('message', 'Cliente atualizado com sucesso!');
     }
 
     /**
@@ -60,6 +65,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect('customers')->with('message', 'Cliente deletado!');
     }
 }
