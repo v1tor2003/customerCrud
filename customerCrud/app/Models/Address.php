@@ -11,8 +11,10 @@ class Address extends Model
 
     protected $table = 'customers';
     protected $fillable = [
-       'customer_id', 'cep', 'state', 'city', 'district', 'street', 'number',
+       'cep', 'state', 'city', 'district', 'street', 'number',
     ];
-    
 
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
 }

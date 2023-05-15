@@ -28,8 +28,8 @@
                                 <tr>
                                     <td>{{ $customer->avatar }}</td>
                                     <td>{{ $customer->name }}</td>
-                                    <td>{{ $customer->customerAddress()->city . ", "  
-                                           . $customer->customerAddress()->state }}</td>
+                                    <td>{{ $customer->address()->city . ", "  
+                                           . $customer->address()->state }}</td>
                                     <td>
                                         <a href="" class="btn btn-primary btn-sm">Ver</a>
                                         <a href="{{ url('customers/' . $customer->id . '/edit') }}" class="btn btn-success btn-sm">Editar</a>

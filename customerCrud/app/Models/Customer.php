@@ -13,7 +13,7 @@ class Customer extends Model
     protected $fillable = [
         'name', 'email', 'phone', 'avatar',
     ];
-    public function customerAddress(){
-        return $this->hasOne(Address::class, 'customer_id', 'id');
+    public function address(){
+        return $this->hasOne(Address::class,'customer_id', 'id');
     }
 }

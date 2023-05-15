@@ -19,6 +19,19 @@ return new class extends Migration
             $table->string('avatar');
             $table->timestamps();
         });
+
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('customer_id')->unique();
+            $table->string('cep');
+            $table->string('state');
+            $table->string('city');
+            $table->string('district');
+            $table->string('street');
+            $table->string('number');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -27,5 +40,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('customers');
+        Schema::dropIfExists('addresses');
     }
 };

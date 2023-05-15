@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customer = Customer::find(1);
+        echo $customer->address()->city;
+        dd($customer);
         return view('customer.index', compact('customers'));
     }
 
@@ -29,8 +32,43 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $customer = Customer::create();
-        $customer->customerAddress()->create();
+        $this->validate($request, 
+        [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg',
+            'cep' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'district' => 'required',
+            'street' => 'required',
+            'number' => 'required',
+        ]);
+
+        $image = $request->file('avatar');
+        if($image){
+            $destination = 'images/';
+            $new_image_name = now() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path($destination, $new_image_name));
+        }
+
+        $customer = Customer::create([
+            'name' =>  $request->input('name'),
+            'email' =>  $request->input('email'),
+            'phone' =>  $request->input('phone'),
+            'avatar'=> $image,
+        ]);
+
+        $address = new Address;
+        $address->cep =  $request->cep;
+        $address->state =  $request->state;
+        $address->city =  $request->city;
+        $address->district =  $request->district;
+        $address->street =  $request->street;
+        $address->number =  $request->number;
+ 
+        $customer->address()->save($address);
         return redirect()->with('message', 'Cliente cadastrado com sucesso!');
     }
 
