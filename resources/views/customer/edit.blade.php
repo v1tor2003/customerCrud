@@ -18,7 +18,7 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form action="{{ url('customers/' . $customer->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('customers.update', ['customer' => $customer->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-header">
@@ -45,27 +45,27 @@
                             </div>
                             <div class="mb-3">
                                 <label for="cep" class="form-label">Cep:</label>
-                                <input value="{{ $customer->customerAddress()->cep }}" onblur="findCep(this.value)" type="text" name="cep" maxlength="8" class="form-control" id="cep" placeholder="XXXXXXXX" >
+                                <input value="{{ $customer->address->cep }}" onblur="findCep(this.value)" type="text" name="cep" maxlength="8" class="form-control" id="cep" placeholder="XXXXXXXX" >
                             </div>
                             <div class="mb-3">
                                 <label for="state" class="form-label">Estado:</label>
-                                <input value="{{ $customer->customerAddress()->state }}" type="text" class="form-control" id="state" name="state" placeholder="Estado">
+                                <input value="{{ $customer->address->state }}" type="text" class="form-control" id="state" name="state" placeholder="Estado">
                             </div>
                             <div class="mb-3">
                               <label for="city" class="form-label">Cidade:</label>
-                              <input value="{{ $customer->customerAddress()->city }}" type="text" class="form-control" id="city" name="city" maxlength="11" placeholder="Cidade">
+                              <input value="{{ $customer->address->city }}" type="text" class="form-control" id="city" name="city" maxlength="11" placeholder="Cidade">
                             </div>
                             <div class="mb-3">
                                 <label for="district" class="form-label">Bairro:</label>
-                                <input value="{{ $customer->customerAddress()->district }}" type="text" class="form-control" id="district" name="district" maxlength="11" placeholder="Bairro Exemplo">
+                                <input value="{{ $customer->address->district }}" type="text" class="form-control" id="district" name="district" maxlength="11" placeholder="Bairro Exemplo">
                             </div>
                             <div class="mb-3">
                                 <label for="street" class="form-label">Rua:</label>
-                                <input value="{{ $customer->customerAddress()->street }}" type="text" class="form-control" id="street" name="street" placeholder="Rua Exemplo">
+                                <input value="{{ $customer->address->street }}" type="text" class="form-control" id="street" name="street" placeholder="Rua Exemplo">
                             </div>
                             <div class="mb-3">
                                 <label for="number" class="form-label">Nº:</label>
-                                <input value="{{ $customer->customerAddress()->number }}" type="text" class="form-control" id="number" name="phone" placeholder="XX">
+                                <input value="{{ $customer->address->number }}" type="text" class="form-control" id="number" name="phone" placeholder="XX">
                             </div>
                             <button type="submit" class="btn btn-primary text-uppercase">Atualizar</button>
                         </form>

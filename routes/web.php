@@ -14,15 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return "test";
-});
-
 Route::controller(CustomerController::class)->group(function(){
-    Route::get('/customers', 'index');
+    Route::get('/', 'index')->name('customers');
     Route::get('/customers/create', 'create');
     Route::post('/customers', 'store');
     Route::get('/customers/{customer}/edit', 'edit');
-    Route::put('/customer/{customer}', 'update');
-    Route::delete('/customers/{customer}', 'destroy');
+    Route::put('/customer/{customer}', 'update')->name('customers.update');
+    Route::delete('/customers/{customer}', 'destroy')->name('customers.destroy');
 });
